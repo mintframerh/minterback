@@ -46,7 +46,7 @@ const ForgotPasswordPost= async  (req, res) => {
     from:"Mintyland",
       to: email,
       subject: 'Reset your password',
-      html: `<p>Click <a href="http://localhost:3000/api/resetpassword/${token}">here</a> to reset your password.</p>`,
+      html: `<p>Click <a href="https://defiant-buckle-pig.cyclic.app/api/resetpassword/${token}">here</a> to reset your password.</p>`,
     };
 
     await transporter.sendMail(mailOptions);
