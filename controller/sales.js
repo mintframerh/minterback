@@ -60,7 +60,7 @@ const createNewSale=async(req, res) => {
         }
       }
     // };
- 
+
 const updateUserBalance=async(req,res)=>{
     
     try {

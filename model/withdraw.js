@@ -28,6 +28,10 @@ const withdrawSchema=new mongoose.Schema({
         type:String,
         trim:true,
         default:'Pending'
+    },
+    email:{
+        type:String,
+        trim:true
     }
 },
 {

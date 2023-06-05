@@ -9,4 +9,5 @@ saleRouter.patch('/updatebalance/:userId',updateUserBalance)
 saleRouter.patch('/updatebalance/withdraw/:userId',updateBalanceAfterWithdraw)
 saleRouter.get('/sales/singleSingle/:userId',getUserSales)
 
+
 module.exports={saleRouter}

@@ -89,6 +89,21 @@ const getSingleWithdraw=async(req,res)=>{
     res.status(500).json({ message: 'Internal server error' });
   }
 }
-module.exports={getPayment,deleteProductOnPayment,makeWithdrawal,getSingleWithdraw}
+
+const getAllWithdraw=async(req,res)=>{
+  try {
+    const allWithdraw=await Withdraw.find()
+    if(allWithdraw){
+      res.status(200).send(allWithdraw)
+    }
+    else{
+      res.status(404).send('Sale Not Found')
+    }
+  } catch (error) {
+    res.status(500).send('internal server error')      
+  }
+}
+
+module.exports={getPayment,deleteProductOnPayment,makeWithdrawal,getSingleWithdraw,getAllWithdraw}
 
 
