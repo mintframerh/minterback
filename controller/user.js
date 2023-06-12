@@ -55,10 +55,68 @@ const postSignInfo=expressAsyncHandler(
               from:"Mintyland",
                 to: email,
                 subject: 'Welcome To Mintyland',
-                html: `<div>
-                        <h3>Welcome To MintyLand</h3>
-                        <p>Welcome to ${username},where you can start making sales immediately</p>
-                      </div>`,
+                html: `<!DOCTYPE html>
+                <html>
+                <head>
+                  <title>Welcome to Our Website</title>
+                  <style>
+                    body {
+                      font-family: Arial, sans-serif;
+                      background-color: #cccccc;
+                      color: #ffffff;
+                    }
+                
+                    .container {
+                      width: 500px;
+                      margin: 0 auto;
+                      padding: 20px;
+                      background-color: #06060d;
+                      border: 1px solid #cccccc;
+                      border-radius: 4px;
+                    }
+                
+                    h1 {
+                      color: rgb(219,0,129);;
+                    }
+                
+                    p {
+                      margin-bottom: 20px;
+                    }
+                
+                    .button {
+                      display: inline-block;
+                      padding: 10px 20px;
+                      background-color: rgb(219,0,129);
+                      color: #ffffff;
+                      text-decoration: none;
+                      border-radius: 4px;
+                    }
+                
+                    .button:hover {
+                      background-color: #0052a3;
+                    }
+                  </style>
+                </head>
+                <body>
+                  <div class="container">
+                    <h1>Welcome to MintyLand!</h1>
+                    <p>Dear ${username}</p>
+                    <p>We are thrilled to have you as a new member of our community. Thank you for joining us!</p>
+                    <p>Here are a few things you can expect from our website:</p>
+                    <ul>
+                      <li>Access to exclusive content</li>
+                      <li>Regular updates on new features and promotions</li>
+                      <li>Engaging discussions with like-minded individuals</li>
+                    </ul>
+                    <p>Feel free to explore and get started right away. Click the button below to log in:</p>
+                    <a class="button" href="http://localhost:3000/login">Log In</a>
+                    <p>If you have any questions or need assistance, please don't hesitate to reach out to our support team.</p>
+                    <p>Best regards,</p>
+                    <p>You can start making Sales now!!!</p>
+                    <p>The MintyLand Team</p>
+                  </div>
+                </body>
+                </html>`,
               };
               await transporter.sendMail(mailOptions);  
               res.send(user)
@@ -72,8 +130,32 @@ const postSignInfo=expressAsyncHandler(
   }
 ) 
 
-
-
-module.exports={postInfo,postSignInfo}
-
-
+const getSingleUserInfo=async(req,res)=>{
+  try {
+    const id=req.params.id
+    const user=await User.findOne({_id:id})
+    if(user){
+      res.send(user)
+    }
+    else{
+      res.send("cannot see")
+    }
+  } catch (error) {
+    res.send('internal server error')
+  }
+}
+const patchUserdetails=async(req,res)=>{
+  try {
+    const {id}=req.params
+    const {name,balance,email}=req.body
+    const updateuser=await User.findByIdAndUpdate(id,
+      { name, email, balance },
+      { new: true })
+    if(updateuser){
+      res.send(updateuser)
+    }
+  } catch (error) {
+    res.send('internal server error')
+  }
+}
+module.exports={postInfo,postSignInfo,getSingleUserInfo,patchUserdetails}

@@ -60,9 +60,17 @@ const getTrending=async(req,res)=>{
 
 
 
+const patchProductdetails=async(req,res)=>{
+  try {
+    const {id}=req.params
+    const {name,category,description}=req.body
+    const updateproduct=await Product.findByIdAndUpdate(id,{ name, category, description },{ new: true })
+    if(updateproduct){
+      res.send(updateproduct)
+    }
+  } catch (error) {
+    res.send('internal server error')
+  }
+}
 
-
-
-
-
-  module.exports={getProduct, getSingleProduct, getAddToCart,getTrending}
+  module.exports={getProduct, getSingleProduct, getAddToCart,getTrending,patchProductdetails}

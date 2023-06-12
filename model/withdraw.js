@@ -32,6 +32,11 @@ const withdrawSchema=new mongoose.Schema({
     email:{
         type:String,
         trim:true
+    },
+    withdrawDescription:{
+        type:String,
+        trim:true,
+        default:'None'
     }
 },
 {

@@ -44,12 +44,73 @@ const createNewSale=async(req, res) => {
             to: email,
             subject: 'Item Sold on Mintyland',
             html: `<div>
-                    <h3>NFT Sold On MintyLand</h3>
+                    
                     <p> Congratulation ${ownerName}, you have sold one of your Art on mintyland</p>
                     <h5>Art Details</h5>
                     <p>Art Name:${name}</p>
                     <p>Price:${price}</p>
-                  </div>`,
+                  </div>
+                  
+                  <!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to Our Website</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #cccccc;
+      color: #ffffff;
+    }
+
+    .container {
+      width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #06060d;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      padding: 2rem;
+    }
+
+    h1 {
+      color: rgb(219,0,129);;
+    }
+
+    p {
+      margin-bottom: 20px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: rgb(219,0,129);
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+
+    .button:hover {
+      background-color: #0052a3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Funds withdrawn from MintyLand!</h1>
+    <h3>NFT Sold On MintyLand</h3>
+    <p>Dear ${ownerName},</p>
+    <p>Congratulation ${ownerName}, you have make some sales on mintyland</p>
+    <p>Sales details</p>
+    <ul>
+      <li>Art Sold ${name}</li>
+      <li>price: ${price}</li>
+    </ul>
+    <p>If you have any questions or need assistance, please don't hesitate to reach out to our support team.</p>
+    <p>Best regards,</p>
+    <p>The MintyLand Team</p>
+  </div>
+</body>
+</html> `,
           };
       
           await transporter.sendMail(mailOptions);

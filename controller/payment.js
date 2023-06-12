@@ -33,11 +33,9 @@ const deleteProductOnPayment= async(req, res) => {
 
 const makeWithdrawal=async(req,res)=>{
   try {
-    const {userAddress,amountWitdraw,paymentMethod,WithdrawalId,amountInEth}=req.body
-    const withdraw= await Withdraw.create({userAddress,amountWitdraw,paymentMethod,WithdrawalId,amountInEth})
-    
-    
-    const usermail=await User.findOne({_id:WithdrawalId})
+    const {userAddress,amountWitdraw,paymentMethod,WithdrawalId,amountInEth,withdrawDescription}=req.body
+    const withdraw= await Withdraw.create({userAddress,amountWitdraw,paymentMethod,WithdrawalId,amountInEth,withdrawDescription})
+    const usermail=await User.findOne({_id:WithdrawalId}) 
     const email=usermail.email
     const name=usermail.name
     const transporter = nodemailer.createTransport({
@@ -56,20 +54,72 @@ const makeWithdrawal=async(req,res)=>{
     from:"Mintyland",
       to: email,
       subject: 'Make Withdrawal on Mintyland',
-      html: `<div>
-              <h3>Withdraw Funds On MintyLand</h3>
-              <p> Congratulation ${name}, you have make a withdrawal on mintyland</p>
-              <h5>Withdrawal Details</h5>
-              <p>Amount withdraw:${amountWitdraw}</p>
-              <p>Payment Method:${paymentMethod}</p>
-              <p>Amount in Ethereum:${amountInEth}</p>
-              <p>Ethereum Address:${userAddress}</p>
-            </div>`,
+      html: `
+            <!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to Our Website</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #cccccc;
+      color: #ffffff;
+    }
+
+    .container {
+      width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #06060d;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+    }
+
+    h1 {
+      color: rgb(219,0,129);;
+    }
+
+    p {
+      margin-bottom: 20px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: rgb(219,0,129);
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+
+    .button:hover {
+      background-color: #0052a3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Funds withdrawn from MintyLand!</h1>
+    <h3>Dear ${name},</h3>
+    <p>Congratulation ${name}, you have make some withdrawal on mintyland</p>
+    <p>Withdrawal detail</p>
+    <ul>
+      <li>Amount withdrawn in Dollars ${amountWitdraw}</li>
+      <li>Payment method:Ethereum BlockChain</li>
+      <li>Amount In Ethereum:${amountInEth}</li>
+      <li>Ethereum Address:${userAddress}</li>
+    </ul>
+    <p>If you have any questions or need assistance, please don't hesitate to reach out to our support team.</p>
+    <p>Best regards,</p>
+    <p>The MintyLand Team</p>
+  </div>
+</body>
+</html>`,
     };
     await transporter.sendMail(mailOptions);
     res.send(withdraw)
   } catch (error) {
-    console.log(err);
+    console.log(error);
     res.status(500).json({ message: 'Internal server error' });
   }
 }
