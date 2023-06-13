@@ -1,5 +1,5 @@
 const bcrypt=require('bcryptjs')
-const data={
+const data={    
     TrendingData:[
         {
         name:"Ashland",

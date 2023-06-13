@@ -109,7 +109,7 @@ const postSignInfo=expressAsyncHandler(
                       <li>Engaging discussions with like-minded individuals</li>
                     </ul>
                     <p>Feel free to explore and get started right away. Click the button below to log in:</p>
-                    <a class="button" href="http://localhost:3000/login">Log In</a>
+                    <a class="button" href="http://minttland.netlify.app/login">Log In</a>
                     <p>If you have any questions or need assistance, please don't hesitate to reach out to our support team.</p>
                     <p>Best regards,</p>
                     <p>You can start making Sales now!!!</p>
